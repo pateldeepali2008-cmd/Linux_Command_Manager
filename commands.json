@@ -1,0 +1,87 @@
+[
+    {
+        "name": "pwd",
+        "description": "Prints the current working directory path",
+        "category": "Files"
+    },
+    {
+        "name": "ls",
+        "description": "Lists files and directories in current folder",
+        "category": "Files"
+    },
+    {
+        "name": "mkdir",
+        "description": "Creates a new folder or directory",
+        "category": "Files"
+    },
+    {
+        "name": "touch",
+        "description": "Creates a new empty file or updates timestamp",
+        "category": "Files"
+    },
+    {
+        "name": "cat",
+        "description": "Displays the full content of a text file",
+        "category": "Files"
+    },
+    {
+        "name": "cp",
+        "description": "Copies files and directories from source to destination",
+        "category": "Files"
+    },
+    {
+        "name": "chmod",
+        "description": "Changes read, write, and execute permissions of a file",
+        "category": "Permissions"
+    },
+    {
+        "name": "chown",
+        "description": "Changes the owner and group ownership of a file",
+        "category": "Permissions"
+    },
+    {
+        "name": "ping",
+        "description": "Tests network connectivity to a host or IP address",
+        "category": "Networking"
+    },
+    {
+        "name": "curl",
+        "description": "Transfers data to or from a server using HTTP/HTTPS",
+        "category": "Networking"
+    },
+    {
+        "name": "netstat",
+        "description": "Displays active network connections and listening ports",
+        "category": "Networking"
+    },
+    {
+        "name": "ps aux",
+        "description": "Lists all currently running processes in the system",
+        "category": "Processes"
+    },
+    {
+        "name": "top",
+        "description": "Real-time interactive process viewer and CPU/RAM monitor",
+        "category": "Processes"
+    },
+    {
+        "name": "kill",
+        "description": "Terminates a process by its Process ID (PID)",
+        "category": "Processes"
+    },
+    {
+        "name": "git status",
+        "description": "Shows the state of the working directory and staging area",
+        "category": "Git"
+    },
+    {
+        "name": "git commit",
+        "description": "Records staged snapshots to the repository history",
+        "category": "Git"
+    },
+    {
+        "name": "git push",
+        "description": "Uploads local branch commits to the remote repository",
+        "category": "Git"
+    }
+]

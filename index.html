@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Command Manager</title>
+    <!-- Google Fonts for Clean Developer Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <div class="cute-penguin-wrapper" title="Hi, I'm Tux! 👋">
+                    <svg class="cute-penguin-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Shadow -->
+                        <ellipse cx="50" cy="94" rx="30" ry="5" fill="rgba(0,0,0,0.3)"/>
+                        
+                        <!-- Left & Right Feet -->
+                        <ellipse cx="38" cy="90" rx="9" ry="5" fill="#f59e0b"/>
+                        <ellipse cx="62" cy="90" rx="9" ry="5" fill="#f59e0b"/>
+
+                        <!-- Left Flipper/Wing -->
+                        <ellipse cx="17" cy="58" rx="7" ry="16" transform="rotate(22 17 58)" fill="#0f172a" stroke="#24324f" stroke-width="1.5"/>
+                        <!-- Right Flipper/Wing (Waving) -->
+                        <g class="waving-wing">
+                            <ellipse cx="83" cy="54" rx="7" ry="15" transform="rotate(-35 83 54)" fill="#0f172a" stroke="#24324f" stroke-width="1.5"/>
+                        </g>
+
+                        <!-- Penguin Chubby Body -->
+                        <ellipse cx="50" cy="54" rx="34" ry="38" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+
+                        <!-- White Chubby Belly -->
+                        <ellipse cx="50" cy="58" rx="25" ry="30" fill="#f8fafc"/>
+
+                        <!-- Left Kawaii Eye -->
+                        <ellipse cx="40" cy="45" rx="5.5" ry="6.5" fill="#0f172a"/>
+                        <circle cx="42" cy="43" r="2.2" fill="#ffffff"/>
+                        <circle cx="38.5" cy="47" r="1.2" fill="#ffffff"/>
+
+                        <!-- Right Kawaii Eye -->
+                        <ellipse cx="60" cy="45" rx="5.5" ry="6.5" fill="#0f172a"/>
+                        <circle cx="62" cy="43" r="2.2" fill="#ffffff"/>
+                        <circle cx="58.5" cy="47" r="1.2" fill="#ffffff"/>
+
+                        <!-- Rosy Blush Cheeks -->
+                        <ellipse cx="32" cy="53" rx="5" ry="2.8" fill="#ff70a6" opacity="0.75"/>
+                        <ellipse cx="68" cy="53" rx="5" ry="2.8" fill="#ff70a6" opacity="0.75"/>
+
+                        <!-- Cute Little Beak -->
+                        <path d="M46 49 C46 49 50 56 50 56 C50 56 54 49 54 49 Z" fill="#f59e0b" stroke="#d97706" stroke-width="1" stroke-linejoin="round"/>
+                        
+                        <!-- Cute forehead sparkle -->
+                        <circle cx="50" cy="24" r="1.5" fill="#38bdf8" opacity="0.8"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Linux Command Manager</h1>
+                    <p class="subtitle">Quick reference & personal command cheatsheet</p>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="openAddModalBtn">+ Add Command</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+
+        <!-- Controls: Search & Category Filter -->
+        <section class="controls-section">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search commands by name or description..." autocomplete="off">
+            </div>
+
+            <div class="category-filters" id="categoryFilters">
+                <button class="filter-pill active" data-category="All">All</button>
+                <button class="filter-pill" data-category="Files">Files</button>
+                <button class="filter-pill" data-category="Permissions">Permissions</button>
+                <button class="filter-pill" data-category="Networking">Networking</button>
+                <button class="filter-pill" data-category="Git">Git</button>
+                <button class="filter-pill" data-category="Processes">Processes</button>
+                <button class="filter-pill" data-category="General">General</button>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <span id="commandCountText">Showing 0 commands</span>
+        </div>
+
+        <!-- Commands Grid -->
+        <section class="commands-grid" id="commandsGrid">
+            <!-- Dynamic command cards will be inserted here by script.js -->
+        </section>
+
+        <!-- Empty State -->
+        <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">📂</div>
+            <h3>No commands found</h3>
+            <p>Try a different search term or add a new command.</p>
+        </div>
+
+    </main>
+
+    <!-- Add / Edit Command Modal -->
+    <div class="modal-overlay hidden" id="commandModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Command</h3>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <form id="commandForm">
+                <div class="form-group">
+                    <label for="commandName">Command Name</label>
+                    <input type="text" id="commandName" placeholder="e.g. grep, chmod, curl" required autocomplete="off">
+                    <small id="nameHelp" class="help-text">Linux command name (e.g. <code>ls</code>, <code>ps</code>)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="commandCategory">Category</label>
+                    <select id="commandCategory" required>
+                        <option value="Files">Files</option>
+                        <option value="Permissions">Permissions</option>
+                        <option value="Networking">Networking</option>
+                        <option value="Git">Git</option>
+                        <option value="Processes">Processes</option>
+                        <option value="General" selected>General</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="commandDescription">Description</label>
+                    <textarea id="commandDescription" rows="3" placeholder="Explain what this command does..." required></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveCommandBtn">Save Command</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification (Top-Right) -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
