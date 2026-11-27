@@ -238,6 +238,13 @@ commandForm.addEventListener('submit', async (e) => {
             }
 
             showToast(`Command "${name}" added successfully!`, 'success');
+
+            // Reset category filter to 'All' so new command is immediately visible
+            currentCategory = 'All';
+            document.querySelectorAll('.filter-pill').forEach(pill => {
+                pill.classList.toggle('active', pill.dataset.category === 'All');
+            });
+            searchInput.value = '';
         } else {
             // ---- PUT Request (Update existing) ----
             const response = await fetch(`/api/commands/${encodeURIComponent(name)}`, {
